@@ -33,7 +33,16 @@ def handle_total():
     print(f"{total:,.2f}")
 
 def handle_filter_by_date():
-    pass
+    date = input("Date: ")
+    expenses = read_all_expenses()
+    filtered_expenses = filter_by_date(expenses, date)
+
+    if filtered_expenses:
+        print(f"\n-----All Expenses at {date}-----")
+        for counter, exepense in enumerate(filtered_expenses, start=1):
+            print(f"{counter}. {exepense['date']}, {exepense['category']}, {exepense['amount']}")
+    else:
+        print(f"\n-----NO EXPENSES at {date}-----")
 
 def handle_filter_by_category():
     pass

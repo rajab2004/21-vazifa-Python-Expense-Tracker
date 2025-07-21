@@ -46,7 +46,11 @@ def calculate_total(expenses):
     return total
 
 def filter_by_date(expenses, search_date):
-    pass
+    filtered_expenses = list(filter(
+        lambda expense: expense['date'] == search_date,
+        expenses
+    ))
+    return filtered_expenses
 
 def filter_by_category(expenses, search_category):
     pass
