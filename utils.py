@@ -53,7 +53,11 @@ def filter_by_date(expenses, search_date):
     return filtered_expenses
 
 def filter_by_category(expenses, search_category):
-    pass
+    filtered_expenses = list(filter(
+        lambda expense: expense['category'] == search_category,
+        expenses
+    ))
+    return filtered_expenses
 
 def format_expense(row):
     pass
