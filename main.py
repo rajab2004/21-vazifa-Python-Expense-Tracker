@@ -1,3 +1,5 @@
+import csv
+import os
 from utils import (
     add_expense,
     read_all_expenses,
@@ -8,47 +10,71 @@ from utils import (
 )
 
 def handle_add_expense():
-    pass
+    sana = input(" Sanani kiriting (Yil-oy-kun): ")
+    summa = float(input(" Summani kiriting: "))
+    turkum = input(" Turkumni kiriting: ")
+    izoh = input(" Izoh: ")
+    add_expense(sana, turkum, summa, izoh)
+    print(" Xarajat muvaffaqiyatli qo'shildi.")
 
 def handle_view_all():
-    pass
+    xarajatlar = read_all_expenses()
+    if not xarajatlar:
+        print(" Hech qanday xarajat topilmadi.")
+    for xarajat in xarajatlar:
+        print(format_expense(xarajat))
 
 def handle_total():
-    pass
+    xarajatlar = read_all_expenses()
+    jami = calculate_total(xarajatlar)
+    print(f" Jami xarajatlar: {jami} so'm")
 
 def handle_filter_by_date():
-    pass
+    sana = input(" Qanday sana bo'yicha? (Yil-oy-kun): ")
+    xarajatlar = read_all_expenses()
+    filtrlangan = filter_by_date(xarajatlar, sana)
+    if not filtrlangan:
+        print(" Ushbu sana bo'yicha xarajat topilmadi.")
+    for xarajat in filtrlangan:
+        print(format_expense(xarajat))
 
 def handle_filter_by_category():
-    pass
+    turkum = input(" Qanday turkum bo'yicha? ")
+    xarajatlar = read_all_expenses()
+    filtrlangan = filter_by_category(xarajatlar, turkum)
+    if not filtrlangan:
+        print(" Ushbu turkum bo'yicha xarajat topilmadi.")
+    for xarajat in filtrlangan:
+        print(format_expense(xarajat))
 
 def main():
     while True:
-        print("\n📋 Expense Tracker")
-        print("1. Add Expense")
-        print("2. View All Expenses")
-        print("3. View Total Expenses")
-        print("4. Filter by Date")
-        print("5. Filter by Category")
-        print("6. Exit")
+        print("\n Xarajatlar Nazorati")
+        print("1. Xarajat qo'shish")
+        print("2. Barcha xarajatlarni ko'rish")
+        print("3. Jami xarajatlarni ko'rish")
+        print("4. Sanaga qarab filtrlash")
+        print("5. Turkumga qarab filtrlash")
+        print("6. Chiqish")
 
-        choice = input("Choose an option: ")
+        tanlov = input(" Bo'limni tanlang: ")
 
-        if choice == "1":
+        if tanlov == "1":
             handle_add_expense()
-        elif choice == "2":
+        elif tanlov == "2":
             handle_view_all()
-        elif choice == "3":
+        elif tanlov == "3":
             handle_total()
-        elif choice == "4":
+        elif tanlov == "4":
             handle_filter_by_date()
-        elif choice == "5":
+        elif tanlov == "5":
             handle_filter_by_category()
-        elif choice == "6":
-            print("👋 Goodbye!")
+        elif tanlov == "6":
+            print(" Xayr! Dasturdan foydalanganingiz uchun rahmat.")
             break
         else:
-            print("❌ Invalid choice.")
+            print(" Noto'g'ri tanlov. Qaytadan urinib ko'ring.")
 
+# 👇 BU YERDA asosiy ishga tushirish joyi
 if __name__ == "__main__":
     main()
