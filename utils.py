@@ -1,45 +1,42 @@
-import csv
 import os
+import csv
 
 FILENAME = "expenses.csv"
 
 def add_expense(date, category, amount):
-    """Yangi xarajatni faylga qo'shadi"""
-    with open(FILENAME, mode="a", newline="", encoding="utf-8") as file:
+    with open(FILENAME, mode="a", newline='') as file:
         writer = csv.writer(file)
         writer.writerow([date, category, amount])
 
 def read_all_expenses():
-    """Barcha xarajatlarni o'qib ro'yxatda qaytaradi"""
-    if not os.path.exists(FILENAME):
-        return []
-    
-    with open(FILENAME, mode="r", newline="", encoding="utf-8") as file:
-        reader = csv.reader(file)
-        return list(reader)
+    expenses = []
+    if os.path.exists(FILENAME):
+        with open(FILENAME, mode="r") as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if len(row) == 3:
+                    expenses.append(row)
+    return expenses
 
 def calculate_total(expenses):
-    """Jami summa hisoblaydi"""
     total = 0
     for row in expenses:
-        try:
-            total += float(row[2])
-        except (IndexError, ValueError):
-            continue
+        total += float(row[2])
     return total
 
 def filter_by_date(expenses, search_date):
-    """Sanaga qarab filtrlash"""
-    return [row for row in expenses if row[0] == search_date]
+    result = []
+    for row in expenses:
+        if row[0] == search_date:
+            result.append(row)
+    return result
 
 def filter_by_category(expenses, search_category):
-    """Turkumga qarab filtrlash"""
-    return [row for row in expenses if row[1].lower() == search_category.lower()]
+    result = []
+    for row in expenses:
+        if row[1].lower() == search_category.lower():
+            result.append(row)
+    return result
 
 def format_expense(row):
-    """Xarajatni chiroyli rinishda chiqarish"""
-    try:
-        date, category, amount = row
-        return f"{date} | {category} | {amount} so'm"
-    except:
-        return "❌ Noto'g'ri formatlangan xarajat"
+    return f"📅 Sana: {row[0]}, 🏷️ Categorya: {row[1]}, 💵 Miqdor: ${row[2]}"
