@@ -1,9 +1,30 @@
 import os
+import csv
 
 FILENAME = "expenses.csv"
 
 def add_expense(date, category, amount):
-    pass
+    if not os.path.exists(FILENAME):
+        open(FILENAME, 'x').close()
+
+    fieldnames = ['date', 'category', 'amount']
+    with open(FILENAME) as csvfile:
+        reader = csv.DictReader(csvfile, fieldnames)
+
+        next(reader)
+
+        rows = list(reader)
+    
+    rows.append({
+        'date': date,
+        'category': category,
+        'amount': amount
+    })
+
+    with open(FILENAME, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
 
 def read_all_expenses():
     pass

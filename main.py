@@ -8,7 +8,12 @@ from utils import (
 )
 
 def handle_add_expense():
-    pass
+    date = input("Date: ")
+    category = input("Category: ")
+    amount = float(input("Amount: "))
+
+    add_expense(date, category, amount)
+    print("A new expenese is added succesfully")
 
 def handle_view_all():
     pass
