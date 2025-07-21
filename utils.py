@@ -27,7 +27,19 @@ def add_expense(date, category, amount):
         writer.writerows(rows)
 
 def read_all_expenses():
-    pass
+    if not os.path.exists(FILENAME):
+        open(FILENAME, 'x').close()
+
+    rows = []
+    fieldnames = ['date', 'category', 'amount']
+    with open(FILENAME) as csvfile:
+        reader = csv.DictReader(csvfile, fieldnames)
+
+        next(reader)
+
+        rows = list(reader)
+
+    return rows
 
 def calculate_total(expenses):
     pass

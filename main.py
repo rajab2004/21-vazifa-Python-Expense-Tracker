@@ -16,7 +16,14 @@ def handle_add_expense():
     print("A new expenese is added succesfully")
 
 def handle_view_all():
-    pass
+    all_expenses = read_all_expenses()
+
+    if all_expenses:
+        print("\n-----All Expenses-----")
+        for counter, exepense in enumerate(all_expenses, start=1):
+            print(f"{counter}. {exepense['date']}, {exepense['category']}, {exepense['amount']}")
+    else:
+        print("\n-----NO EXPENSES-----")
 
 def handle_total():
     pass
