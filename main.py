@@ -26,7 +26,11 @@ def handle_view_all():
         print("\n-----NO EXPENSES-----")
 
 def handle_total():
-    pass
+    expenses = read_all_expenses()
+    total = calculate_total(expenses)
+
+    print("----Your All Total Expenses----")
+    print(f"{total:,.2f}")
 
 def handle_filter_by_date():
     pass

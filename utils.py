@@ -42,7 +42,8 @@ def read_all_expenses():
     return rows
 
 def calculate_total(expenses):
-    pass
+    total = sum(map(lambda expense: float(expense['amount']), expenses))
+    return total
 
 def filter_by_date(expenses, search_date):
     pass
